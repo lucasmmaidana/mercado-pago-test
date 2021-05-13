@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3005",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "mercadopago": "^1.5.7",
     "next": "10.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
