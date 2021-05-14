@@ -13,16 +13,8 @@ export default async function handler(req, res) {
   await cors(req, res);
 
   if (req.method === "POST") {
-    /* let body = "";
-    req.on("data", (chunk) => {
-      body += chunk.toString();
-    });
-    req.on("end", () => {
-      console.log(body, "webhook response");
-      res.end("ok");
-    }); */
-    console.log("Cuerpo del POST ", req.body);
-    if (req.body.topic === "payment") {
+    console.log("Body: ", req.body);
+    if (req.body.action === "payment.created") {
       const payment = await axios.get(
         `https://api.mercadopago.com/v1/payments/${req.body.data.id}`,
         {
