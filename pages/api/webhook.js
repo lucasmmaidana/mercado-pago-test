@@ -22,15 +22,17 @@ export default async function handler(req, res) {
       res.end("ok");
     }); */
     console.log("Cuerpo del POST ", req.body);
-    const payment = await axios.get(
-      `https://api.mercadopago.com/v1/payments/${req.body.data.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.mercadoPagoAccessToken}`,
-        },
-      }
-    );
-    console.log("Payment information: ", payment);
+    if (req.body.topic === "payment") {
+      const payment = await axios.get(
+        `https://api.mercadopago.com/v1/payments/${req.body.data.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.mercadoPagoAccessToken}`,
+          },
+        }
+      );
+      console.log("Payment information: ", payment);
+    }
   }
   return res.status(200);
 }
