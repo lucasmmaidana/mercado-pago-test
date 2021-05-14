@@ -9,21 +9,23 @@ const cors = initMiddleware(
   })
 );
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
   await cors(req, res);
 
   if (req.method === "POST") {
     console.log("Body: ", req.body);
     if (req.body.action === "payment.created") {
-      const payment = await axios.get(
-        `https://api.mercadopago.com/v1/payments/${req.body.data.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.mercadoPagoAccessToken}`,
-          },
-        }
-      );
-      console.log("Payment information: ", payment);
+      async () => {
+        const payment = await axios.get(
+          `https://api.mercadopago.com/v1/payments/${req.body.data.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.mercadoPagoAccessToken}`,
+            },
+          }
+        );
+        console.log("Payment information: ", payment);
+      };
     }
   }
   return res.status(200);
