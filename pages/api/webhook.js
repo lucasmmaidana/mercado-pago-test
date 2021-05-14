@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cors from "cors";
 import initMiddleware from "../../lib/init-middleware";
 
@@ -20,7 +21,16 @@ export default async function handler(req, res) {
       console.log(body, "webhook response");
       res.end("ok");
     }); */
-    console.log(req.body);
+    console.log("Cuerpo del POST ", req.body);
+    const payment = await axios.get(
+      `https://api.mercadopago.com/v1/payments/${req.body.data.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.mercadoPagoAccessToken}`,
+        },
+      }
+    );
+    console.log("Payment information: ", payment);
   }
   return res.status(200);
 }
