@@ -12,14 +12,15 @@ export default async function handler(req, res) {
   await cors(req, res);
 
   if (req.method === "POST") {
-    let body = "";
+    /* let body = "";
     req.on("data", (chunk) => {
       body += chunk.toString();
     });
     req.on("end", () => {
       console.log(body, "webhook response");
       res.end("ok");
-    });
+    }); */
+    console.log(req.body);
   }
   return res.status(200);
 }
